@@ -32,7 +32,10 @@ def test_from_bc_data__happy_path() -> None:
     assert sub.telephone == "+441234567890"
     assert sub.membership_number == 12345
     assert isinstance(sub.club_membership_expiry, datetime)
-    assert sub.club_membership_expiry.date() == datetime(2024, 12, 19).astimezone(UTC).date()
+    assert (
+        sub.club_membership_expiry.date()
+        == datetime(2024, 12, 19).astimezone(UTC).date()
+    )
 
 
 def test_from_bc_data__blank_fields() -> None:
