@@ -4,7 +4,7 @@ import csv
 from collections.abc import Mapping
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Self, TypeVar
+from typing import Any, Self
 
 from attrs import define
 from cattrs import register_structure_hook, structure
@@ -21,11 +21,6 @@ def _convert_bc_date(value: str, type_: datetime) -> datetime | None:
 @define(kw_only=True, frozen=True)
 class ClubSubscription:
     """Maps directly to a TODO record in the BC Club Management Tool."""
-
-    # Other column names: dob, emergency_contact_name, emergency_contact_number,
-    # primary_club, membership_type, membership_status, valid_to_dt, age_category,
-    # Address 1, Address 2, Address 3, Address 4, Address 5, Address 6, Country,
-    # Road & Track Licence Cat
 
     first_name: str
     """Required, appears always populated in CSV.
@@ -57,6 +52,11 @@ class ClubSubscription:
     """Optional, observed not always populated in CSV.
     CSV column: 'end_dt'.
     BC UI column: 'Club Membership Expiry'."""
+
+    # Other column names: dob, emergency_contact_name, emergency_contact_number,
+    # primary_club, membership_type, membership_status, valid_to_dt, age_category,
+    # Address 1, Address 2, Address 3, Address 4, Address 5, Address 6, Country,
+    # Road & Track Licence Cat
 
     @property
     def full_name(self) -> str:
