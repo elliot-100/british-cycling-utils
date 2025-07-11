@@ -1,4 +1,4 @@
-"""Module containing `BCPersonRecord` class and associated code."""
+"""Module containing `ClubSubscription` class and associated code."""
 
 import csv
 from collections.abc import Mapping
@@ -10,8 +10,8 @@ from attrs import define
 from cattrs import register_structure_hook, structure
 
 
-def _convert_bc_date(value: str, type_: datetime) -> datetime | None:
-    """Converts from string in BC data to datetime or None."""
+def _convert_bc_date(value: str, type_: datetime) -> datetime | None:  # noqa: ARG001
+    """Convert from string in BC data to datetime or None."""
     if value == "":
         return None
 
@@ -20,7 +20,7 @@ def _convert_bc_date(value: str, type_: datetime) -> datetime | None:
 
 @define(kw_only=True, frozen=True)
 class ClubSubscription:
-    """Maps directly to a TODO record in the BC Club Management Tool."""
+    """Represents a subscription record in the BC Club Management Tool."""
 
     first_name: str
     """Required, appears always populated in CSV.
@@ -66,8 +66,8 @@ class ClubSubscription:
     @classmethod
     def from_bc_data(cls, bc_data: Mapping[str, Any]) -> Self:
         """Create instance from BC data.
-        Ignores non-implemented fields.
-        Aliases and converts fields
+
+        Aliases and converts fields; ignores non-implemented fields.
         """
         register_structure_hook(datetime, _convert_bc_date)
         return structure(

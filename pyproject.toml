@@ -36,8 +36,8 @@ select = ["ALL"]
 ignore = [
     # Rules that conflict with Ruff formatter:
     "COM812",  # Trailing comma missing
-    # Other:
-    "D", "ERA", "T201", "ARG001"
+    # Mutually exclusive choices:
+    "D203", "D213"
 ]
 
 [tool.ruff.lint.per-file-ignores]
