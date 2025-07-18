@@ -10,12 +10,14 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Added
 
+- README
 - build backend
 - `py.typed` marker
 
 ### Changed
 
 - Rename module and class
+- Improved docstrings
 - Tests use installed version of project
 
 ### Fixed
