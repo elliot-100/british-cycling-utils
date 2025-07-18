@@ -12,13 +12,13 @@ from cattrs.gen import make_dict_structure_fn
 
 
 def _convert_bc_date(value: str, type_: datetime) -> datetime | None:  # noqa: ARG001
-    """Converts from string in BC data to datetime or None."""
+    """Convert from string in BC data to datetime or None."""
     return datetime.strptime(value, "%d/%m/%Y").astimezone(UTC) if value else None
 
 
 @define(kw_only=True, frozen=True)
 class ClubSubscription:
-    """Maps directly to a TODO record in the BC Club Management Tool."""
+    """Represents a subscription record in the BC Club Management Tool."""
 
     # Other column names: dob, emergency_contact_name, emergency_contact_number,
     # primary_club, membership_type, membership_status, valid_to_dt, age_category,
@@ -59,10 +59,9 @@ class ClubSubscription:
     @classmethod
     def from_bc_data(cls, bc_data: Mapping[str, Any]) -> Self:
         """Create instance from BC data.
-        Ignores non-implemented fields.
-        Aliases and converts fields
-        """
 
+        Aliases and converts fields; ignores non-implemented fields.
+        """
         c = Converter()
         c.register_structure_hook(datetime, _convert_bc_date)
         hook = make_dict_structure_fn(cls, c, _cattrs_use_alias=True)
