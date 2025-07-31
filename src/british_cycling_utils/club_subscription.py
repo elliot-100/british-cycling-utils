@@ -1,7 +1,7 @@
 """Module containing `ClubSubscription` class and associated code."""
 
 import csv
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any, Self
@@ -88,11 +88,18 @@ class ClubSubscription:
     #   Road & Track Licence Cat
 
     @classmethod
-    def from_bc_data(cls, bc_data: Mapping[str, Any]) -> Self:
+    def from_bc_data(
+        cls,
+        bc_data: Mapping[str, Any],
+        include_only_fields: Iterable[str] | None = None,
+    ) -> Self:
         """Create instance from BC data.
 
         Aliases and converts fields; ignores non-implemented fields.
         """
+        if not include_only_fields:
+            pass
+
         c = Converter(use_alias=True)
         c.register_structure_hook(date, _convert_bc_date)
         hook = make_dict_structure_fn(cls, c)
