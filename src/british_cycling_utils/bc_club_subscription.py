@@ -6,8 +6,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Self
 
-from attrs import define
-from cattrs import register_structure_hook, structure
+from attrs import define, field
+from cattrs import Converter
+from cattrs.gen import make_dict_structure_fn
 
 
 def _convert_bc_date(value: str, type_: datetime) -> datetime | None:  # noqa: ARG001
@@ -39,18 +40,18 @@ class BcClubSubscription:
     CSV column: same name.
     BC UI column: 'Email'."""
 
-    telephone_day: str
+    telephone: str = field(alias="telephone_day")
     """Required, appears always populated in CSV.
     CSV column: same name
     BC UI column: 'Telephone'."""
 
-    bc_membership_number: int
+    british_cycling_membership_number: int = field(alias="membership_number")
     """Required, appears always populated in CSV.
     This is a really a BC profile/login id, not limited to current BC members.
     CSV column: 'membership_number'.
     BC UI column: 'British Cycling Member', but blank if not a current BC member."""
 
-    expiry: datetime | None
+    club_membership_expiry: datetime | None = field(alias="end_dt")
     """Optional, observed not always populated in CSV.
     CSV column: 'end_dt'.
     BC UI column: 'Club Membership Expiry'."""
@@ -61,18 +62,12 @@ class BcClubSubscription:
         Ignores non-implemented fields.
         Aliases and converts fields
         """
-        register_structure_hook(datetime, _convert_bc_date)
-        return structure(
-            {
-                "first_name": bc_data["first_name"],
-                "last_name": bc_data["last_name"],
-                "email": bc_data["email"],
-                "telephone_day": bc_data["telephone_day"],
-                "bc_membership_number": bc_data["membership_number"],
-                "expiry": bc_data["end_dt"],
-            },
-            cls,
-        )
+
+        c = Converter()
+        c.register_structure_hook(datetime, _convert_bc_date)
+        hook = make_dict_structure_fn(cls, c, _cattrs_use_alias=True)
+        c.register_structure_hook(cls, hook)
+        return c.structure(bc_data, cls)
 
     @classmethod
     def list_from_bc_csv(cls, file_path: Path) -> list[Self]:
