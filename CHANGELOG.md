@@ -8,6 +8,10 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ## UNRELEASED - TBC
 
+### Added
+
+- `py.typed` marker
+
 ### Fixed
 
 - mypy was specified as runtime dependency
