@@ -2,7 +2,7 @@
 
 from datetime import UTC, datetime
 
-from british_cycling_utils.bc_club_subscription import BcClubSubscription
+from british_cycling_utils.club_subscription import ClubSubscription
 
 bc_data = {
     "first_name": "Julia",
@@ -24,8 +24,8 @@ bc_data_with_blank = {
 
 
 def test_from_bc_data__happy_path() -> None:
-    """Test that a BCPersonRecord is returned from BC data."""
-    sub = BcClubSubscription.from_bc_data(bc_data)
+    """Test that a `ClubSubscription` instance is created from BC data."""
+    sub = ClubSubscription.from_bc_data(bc_data)
     assert sub.email == "julia@example.com"
     assert sub.first_name == "Julia"
     assert sub.last_name == "Roberts"
@@ -39,6 +39,6 @@ def test_from_bc_data__happy_path() -> None:
 
 
 def test_from_bc_data__blank_fields() -> None:
-    """Test that a BCPersonRecord is returned from BC data when fields are blank."""
-    sub = BcClubSubscription.from_bc_data(bc_data_with_blank)
+    """Test that a `ClubSubscription` instance is created when fields are blank."""
+    sub = ClubSubscription.from_bc_data(bc_data_with_blank)
     assert sub.club_membership_expiry is None

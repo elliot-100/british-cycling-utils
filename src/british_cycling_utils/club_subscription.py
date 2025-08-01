@@ -1,4 +1,4 @@
-"""Module containing `BCPersonRecord` class and associated code."""
+"""Module containing `ClubSubscription` class and associated code."""
 
 import csv
 from collections.abc import Mapping
@@ -17,7 +17,7 @@ def _convert_bc_date(value: str, type_: datetime) -> datetime | None:  # noqa: A
 
 
 @define(kw_only=True, frozen=True)
-class BcClubSubscription:
+class ClubSubscription:
     """Maps directly to a TODO record in the BC Club Management Tool."""
 
     # Other column names: dob, emergency_contact_name, emergency_contact_number,
