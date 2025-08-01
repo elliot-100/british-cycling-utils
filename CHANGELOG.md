@@ -10,6 +10,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Added
 
+- build backend
 - `py.typed` marker
 
 ### Fixed
