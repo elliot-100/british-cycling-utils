@@ -15,6 +15,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Changed
 
+- Rename module and class
 - Tests use installed version of project
 
 ### Fixed
