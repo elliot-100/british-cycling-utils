@@ -13,6 +13,10 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 - build backend
 - `py.typed` marker
 
+### Changed
+
+- Tests use installed version of project
+
 ### Fixed
 
 - mypy was specified as runtime dependency

@@ -2,7 +2,7 @@
 
 from datetime import UTC, datetime
 
-from src.british_cycling_utils.bc_club_subscription import BcClubSubscription
+from british_cycling_utils.bc_club_subscription import BcClubSubscription
 
 bc_data = {
     "first_name": "Julia",
