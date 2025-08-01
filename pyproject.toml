@@ -1,7 +1,7 @@
 [project]
 name = "british-cycling-utils"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.2.0"
+description = "Unofficial library to work with data exported from British Cycling"
 readme = "README.md"
 authors = [
     { name = "elliot-100", email = "3186037+elliot-100@users.noreply.github.com" }
