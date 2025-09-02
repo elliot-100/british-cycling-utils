@@ -64,9 +64,9 @@ class ClubSubscription:
 
         Aliases and converts fields; ignores non-implemented fields.
         """
-        c = Converter()
+        c = Converter(use_alias=True)
         c.register_structure_hook(date, _convert_bc_date)
-        hook = make_dict_structure_fn(cls, c, _cattrs_use_alias=True)
+        hook = make_dict_structure_fn(cls, c)
         c.register_structure_hook(cls, hook)
         return c.structure(bc_data, cls)
 
