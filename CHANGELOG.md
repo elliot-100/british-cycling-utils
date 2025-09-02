@@ -6,7 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project tries to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [0.2.0] - 2025-08-1
+## UNRELEASED - TBC
+
+### Changed
+
+- `ClubSubscription.club_membership_expiry` from `datetime.datetime` to `datetime.date`
+
+
+## [0.2.0] - 2025-08-01
 
 ### Added
 

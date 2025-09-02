@@ -2,7 +2,7 @@
 
 import csv
 from collections.abc import Mapping
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any, Self
 
@@ -11,9 +11,11 @@ from cattrs import Converter
 from cattrs.gen import make_dict_structure_fn
 
 
-def _convert_bc_date(value: str, type_: datetime) -> datetime | None:  # noqa: ARG001
-    """Convert from string in BC data to datetime or None."""
-    return datetime.strptime(value, "%d/%m/%Y").astimezone(UTC) if value else None
+def _convert_bc_date(value: str, type_: date) -> date | None:  # noqa: ARG001
+    """Convert from string in BC data to date or None."""
+    return (
+        datetime.strptime(value, "%d/%m/%Y").astimezone(UTC).date() if value else None
+    )
 
 
 @define(kw_only=True, frozen=True)
@@ -51,7 +53,7 @@ class ClubSubscription:
     CSV column: 'membership_number'.
     BC UI column: 'British Cycling Member', but blank if not a current BC member."""
 
-    club_membership_expiry: datetime | None = field(alias="end_dt")
+    club_membership_expiry: date | None = field(alias="end_dt")
     """Optional, observed not always populated in CSV.
     CSV column: 'end_dt'.
     BC UI column: 'Club Membership Expiry'."""
@@ -63,7 +65,7 @@ class ClubSubscription:
         Aliases and converts fields; ignores non-implemented fields.
         """
         c = Converter()
-        c.register_structure_hook(datetime, _convert_bc_date)
+        c.register_structure_hook(date, _convert_bc_date)
         hook = make_dict_structure_fn(cls, c, _cattrs_use_alias=True)
         c.register_structure_hook(cls, hook)
         return c.structure(bc_data, cls)
