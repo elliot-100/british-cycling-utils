@@ -20,18 +20,18 @@ build-backend = "hatchling.build"
 dev = [
     "mypy>=1.17.1",
     "pytest>=8.4.1",
-    "ruff>=0.12.7",
+    "ruff>=0.12.11",
 ]
 
 [tool.mypy]
 strict = true
-## Disallow dynamic typing: use of the dynamic 'Any' type under certain conditions
+# Disallow dynamic typing: use of the dynamic 'Any' type under certain conditions
 disallow_any_unimported = true
-## None and Optional handling: adjust how values of type 'None' are handled
+# None and Optional handling: adjust how values of type 'None' are handled
 no_implicit_optional = true
-## Configuring warnings: detect code that is sound but redundant or problematic.
+# Configuring warnings: detect code that is sound but redundant or problematic.
 warn_unreachable = true
-## Configuring error messages
+# Configuring error messages
 show_error_codes = true
 pretty = true
 
