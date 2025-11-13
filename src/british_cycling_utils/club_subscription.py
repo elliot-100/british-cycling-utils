@@ -22,41 +22,35 @@ def _convert_bc_date(value: str, type_: date) -> date | None:  # noqa: ARG001
 class ClubSubscription:
     """Represents a subscription record in the BC Club Management Tool."""
 
+    british_cycling_membership_number: int = field(alias="membership_number")
+    """Required, appears always populated in CSV.
+    This is a really a BC profile/login id, not limited to current BC members.
+    CSV column: 'membership_number'."""
+
+    first_name: str
+    """Required, appears always populated in CSV.
+    CSV column: same name."""
+
+    last_name: str
+    """Required, appears always populated in CSV.
+    CSV column: same name."""
+
+    email: str
+    """Required, appears always populated in CSV.
+    CSV column: same name."""
+
+    telephone: str = field(alias="telephone_day")
+    """Required, appears always populated in CSV.
+    CSV column: 'telephone_day'."""
+
+    club_membership_expiry: date | None = field(alias="end_dt")
+    """Optional, observed not always populated in CSV.
+    CSV column: 'end_dt'."""
+
     # Other column names: dob, emergency_contact_name, emergency_contact_number,
     # primary_club, membership_type, membership_status, valid_to_dt, age_category,
     # Address 1, Address 2, Address 3, Address 4, Address 5, Address 6, Country,
     # Road & Track Licence Cat
-
-    first_name: str
-    """Required, appears always populated in CSV.
-    CSV column: same name.
-    BC UI column: 'Forename'."""
-
-    last_name: str
-    """Required, appears always populated in CSV.
-    CSV column: same name.
-    BC UI column: 'Surname'."""
-
-    email: str
-    """Required, appears always populated in CSV.
-    CSV column: same name.
-    BC UI column: 'Email'."""
-
-    telephone: str = field(alias="telephone_day")
-    """Required, appears always populated in CSV.
-    CSV column: same name
-    BC UI column: 'Telephone'."""
-
-    british_cycling_membership_number: int = field(alias="membership_number")
-    """Required, appears always populated in CSV.
-    This is a really a BC profile/login id, not limited to current BC members.
-    CSV column: 'membership_number'.
-    BC UI column: 'British Cycling Member', but blank if not a current BC member."""
-
-    club_membership_expiry: date | None = field(alias="end_dt")
-    """Optional, observed not always populated in CSV.
-    CSV column: 'end_dt'.
-    BC UI column: 'Club Membership Expiry'."""
 
     @classmethod
     def from_bc_data(cls, bc_data: Mapping[str, Any]) -> Self:
