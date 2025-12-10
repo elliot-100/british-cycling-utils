@@ -43,14 +43,49 @@ class ClubSubscription:
     """Required, appears always populated in CSV.
     CSV column: 'telephone_day'."""
 
+    dob: date
+    """Required, appears always populated in CSV.
+    CSV column: same name."""
+
+    emergency_contact_name: str | None
+    """Optional, observed not always populated in CSV.
+    CSV column: same name."""
+
+    emergency_contact_number: str | None
+    """Optional, observed not always populated in CSV.
+    CSV column: same name."""
+
+    primary_club: str | None
+    """Optional, assumed not always populated in CSV.
+    CSV column: same name.
+    BC UI column: 'Primary Club'."""
+
     club_membership_expiry: date | None = field(alias="end_dt")
     """Optional, observed not always populated in CSV.
     CSV column: 'end_dt'."""
 
-    # Other column names: dob, emergency_contact_name, emergency_contact_number,
-    # primary_club, membership_type, membership_status, valid_to_dt, age_category,
-    # Address 1, Address 2, Address 3, Address 4, Address 5, Address 6, Country,
-    # Road & Track Licence Cat
+    british_cycling_membership_type: str = field(alias="membership_type")
+    """Required, appears always populated in CSV.
+    CSV column: 'membership_type'."""
+
+    british_cycling_membership_status: str = field(alias="membership_status")
+    """Required, appears always populated in CSV.
+    CSV column: 'membership_status'."""
+
+    british_cycling_membership_expiry: date | None = field(alias="valid_to_dt")
+    """Optional, observed not always populated in CSV.
+    CSV column: 'valid_to_dt'."""
+
+    # Other column names:
+    #   age_category
+    #   Address 1
+    #   Address 2
+    #   Address 3
+    #   Address 4
+    #   Address 5
+    #   Address 6
+    #   Country
+    #   Road & Track Licence Cat
 
     @classmethod
     def from_bc_data(cls, bc_data: Mapping[str, Any]) -> Self:
