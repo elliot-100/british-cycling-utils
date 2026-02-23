@@ -6,16 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project tries to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [UNRELEASED] - TBC
+## [0.4.0] - 2026-02-23
 
 ### Added
 
-- More fields
+- More `ClubSubscription` fields
 - Document fields in README
 
 ### Changed
 
 - Support Python 3.11
+
+### Fixed
+
+- Type-checking from other projects was broken, due to misplaced `py.typed` marker
 
 
 ## [0.3.1] - 2025-10-08
@@ -57,6 +61,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Initial release
 
 
+[0.4.0]: https://github.com/elliot-100/british-cycling-utils/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/elliot-100/british-cycling-utils/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/elliot-100/british-cycling-utils/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/elliot-100/british-cycling-utils/compare/v0.1.0...v0.2.0
