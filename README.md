@@ -7,16 +7,10 @@ Unofficial and not affiliated.
 
 ## Installation
 
-Install from GitHub, e.g.:
+Install from PyPI, e.g.:
 
 ```sh
-pip install git+https://github.com/elliot-100/british-cycling-utils
-```
-
-I recommend installing a specific version, e.g.:
-
-```sh
-pip install git+https://github.com/elliot-100/british-cycling-utils@v0.1.2
+pip install british-cycling-utils
 ```
 
 ## Example code

@@ -6,12 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project tries to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [UNRELEASED] - TBC
+
+### Changed
+
+- Docs: Update `README.md` for PyPI install
+
+
 ## [0.4.0] - 2026-02-23
 
 ### Added
 
 - More `ClubSubscription` fields
-- Document fields in README
+- Docs: document fields in README
 
 ### Changed
 
