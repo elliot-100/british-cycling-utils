@@ -24,9 +24,9 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
-    "mypy>=1.19.1",
-    "pytest>=9.0.2",
-    "ruff>=0.15.2",
+    "mypy>=2.3.1",
+    "pytest>=9.1.1",
+    "ruff>=0.16.5",
 ]
 
 [tool.mypy]
@@ -46,8 +46,10 @@ select = ["ALL"]
 ignore = [
     # Rules that conflict with Ruff formatter:
     "COM812",  # Trailing comma missing
-    # Mutually exclusive choices:
-    "D203", "D213"
+    # Mutually exclusive format choices:
+    "D203", "D213",
+    # Other:
+    "CPY001"  # Missing copyright notice at top of file
 ]
 
 [tool.ruff.lint.per-file-ignores]
