@@ -10,6 +10,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Added
 
+- Support Python 3.15
 - CI: add Dependabot
 
 ### Changed
@@ -18,7 +19,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
   i.e. direct dependencies are pinned to the lowest version that satisfies the requirements.
 
   This should ensure CI flags if dependency lower bounds need to be raised to be
-  compatible with a Python version in the CI matrix.=
+  compatible with a Python version in the CI matrix.
 
 
 ## [0.5.1] - 2026-08-22
