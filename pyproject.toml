@@ -57,3 +57,5 @@ ignore = [
     "PLR2004",  # Magic value used in comparison
 ]
 
+[tool.uv]
+resolution = "lowest-direct"
