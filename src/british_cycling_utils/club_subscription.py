@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Self
 
 from attrs import define, field
+from attrs.validators import instance_of
 from cattrs import Converter
 from cattrs.gen import make_dict_structure_fn
 
@@ -21,57 +22,67 @@ def _convert_bc_date(value: str, type_: date) -> date | None:  # noqa: ARG001
 class ClubSubscription:
     """Represents a subscription record in the BC Club Management Tool."""
 
-    british_cycling_membership_number: int = field(alias="membership_number")
+    british_cycling_membership_number: int = field(
+        alias="membership_number", validator=instance_of(int)
+    )
     """Required, appears always populated in CSV.
     This is a really a BC profile/login id, not limited to current BC members.
     CSV column: 'membership_number'."""
 
-    first_name: str
+    first_name: str = field(validator=instance_of(str))
     """Required, appears always populated in CSV.
     CSV column: same name."""
 
-    last_name: str
+    last_name: str = field(validator=instance_of(str))
     """Required, appears always populated in CSV.
     CSV column: same name."""
 
-    email: str
+    email: str = field(validator=instance_of(str))
     """Required, appears always populated in CSV.
     CSV column: same name."""
 
-    telephone: str = field(alias="telephone_day")
+    telephone: str = field(alias="telephone_day", validator=instance_of(str))
     """Required, appears always populated in CSV.
     CSV column: 'telephone_day'."""
 
-    dob: date
+    dob: date = field(validator=instance_of(date))
     """Required, appears always populated in CSV.
     CSV column: same name."""
 
-    emergency_contact_name: str | None
+    emergency_contact_name: str | None = field(validator=instance_of(str | None))
     """Optional, observed not always populated in CSV.
     CSV column: same name."""
 
-    emergency_contact_number: str | None
+    emergency_contact_number: str | None = field(validator=instance_of(str | None))
     """Optional, observed not always populated in CSV.
     CSV column: same name."""
 
-    primary_club: str | None
+    primary_club: str | None = field(validator=instance_of(str | None))
     """Optional, assumed not always populated in CSV.
     CSV column: same name.
     BC UI column: 'Primary Club'."""
 
-    club_membership_expiry: date | None = field(alias="end_dt")
+    club_membership_expiry: date | None = field(
+        alias="end_dt", validator=instance_of(date | None)
+    )
     """Optional, observed not always populated in CSV.
     CSV column: 'end_dt'."""
 
-    british_cycling_membership_type: str = field(alias="membership_type")
+    british_cycling_membership_type: str = field(
+        alias="membership_type", validator=instance_of(str)
+    )
     """Required, appears always populated in CSV.
     CSV column: 'membership_type'."""
 
-    british_cycling_membership_status: str = field(alias="membership_status")
+    british_cycling_membership_status: str = field(
+        alias="membership_status", validator=instance_of(str)
+    )
     """Required, appears always populated in CSV.
     CSV column: 'membership_status'."""
 
-    british_cycling_membership_expiry: date | None = field(alias="valid_to_dt")
+    british_cycling_membership_expiry: date | None = field(
+        alias="valid_to_dt", validator=instance_of(date | None)
+    )
     """Optional, observed not always populated in CSV.
     CSV column: 'valid_to_dt'."""
 

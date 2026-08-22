@@ -10,6 +10,8 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Added
 
+- `ClubSubscription` data validation
+- Tests for `ClubSubscription.__init__()`
 - Support Python 3.15
 - CI: add Dependabot
 
