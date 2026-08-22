@@ -2,7 +2,7 @@
 
 import csv
 from collections.abc import Mapping
-from datetime import UTC, date, datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Self
 
@@ -13,9 +13,8 @@ from cattrs.gen import make_dict_structure_fn
 
 def _convert_bc_date(value: str, type_: date) -> date | None:  # noqa: ARG001
     """Convert from string in BC data to date or None."""
-    return (
-        datetime.strptime(value, "%d/%m/%Y").astimezone(UTC).date() if value else None
-    )
+    return datetime.strptime(value, "%d/%m/%Y").date() if value else None  # noqa: DTZ007
+    # Date object is never tz aware
 
 
 @define(kw_only=True, frozen=True)
