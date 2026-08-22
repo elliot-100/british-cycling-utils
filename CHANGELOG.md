@@ -10,12 +10,14 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Added
 
+- Validation for `ClubSubscription` field types
+- Tests for `ClubSubscription.__init__()`
 - CI: add Dependabot
 
 ### Changed
 
 - CI: uv resolution strategy is now 'lowest-direct'
-  i.e. direct dependencies are pinned to the lowest version that satisfies the requirements
+  i.e. direct dependencies are pinned to the lowest version that satisfies the requirements.
 
   This should ensure CI flags if dependency lower bounds need to be raised to be
   compatible with a Python version in the CI matrix
