@@ -12,6 +12,14 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 - CI: add Dependabot
 
+### Changed
+
+- CI: lockfile resolution strategy is now 'lowest-direct'
+  i.e. direct dependencies are pinned to the lowest version that satisfies the requirements.
+
+  This should ensure CI flags if dependency lower bounds need to be raised to be
+  compatible with a Python version in the CI matrix.=
+
 
 ## [0.5.1] - 2026-08-22
 
