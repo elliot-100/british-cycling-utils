@@ -1,10 +1,63 @@
 """Tests for 'BC' functions."""
 
 from datetime import date
+from typing import Any
 
 from british_cycling_utils.club_subscription import ClubSubscription
 
-required_fields = {
+required_fields: dict[str, Any] = {
+    "membership_number": 12345,
+    "first_name": "Julia",
+    "last_name": "Roberts",
+    "email": "julia@example.com",
+    "telephone_day": "+441234567890",
+    "dob": date(1967, 10, 28),
+    "emergency_contact_name": "George Clooney",
+    "emergency_contact_number": "+441234567890",
+    "primary_club": "Addlestone CC",
+    "valid_to_dt": date(2025, 1, 31),
+    "end_dt": date(2024, 12, 19),
+    "membership_type": "Non-member",
+    "membership_status": "Inactive",
+}
+
+
+def test_init__happy_path() -> None:
+    """Test that a `ClubSubscription` instance is initiated from data."""
+    # arrange
+    # act
+    sub = ClubSubscription(**required_fields)
+    # assert
+    assert sub
+
+
+required_fields_minimal: dict[str, Any] = {
+    "membership_number": 54321,
+    "first_name": "Kevin",
+    "last_name": "Bacon",
+    "email": "kevin@example.com",
+    "telephone_day": "+441234567890",
+    "dob": date(1958, 7, 8),
+    "emergency_contact_name": None,
+    "emergency_contact_number": None,
+    "primary_club": "Brooklands CC",
+    "end_dt": None,
+    "membership_type": "Active Member",
+    "membership_status": "Active",
+    "valid_to_dt": None,
+}
+
+
+def test_init__minimal() -> None:
+    """Test that a `ClubSubscription` instance is initiated from minimal data."""
+    # arrange
+    # act
+    sub = ClubSubscription(**required_fields_minimal)
+    # assert
+    assert sub
+
+
+bc_data_required_fields = {
     "membership_number": "12345",
     "first_name": "Julia",
     "last_name": "Roberts",
@@ -20,7 +73,23 @@ required_fields = {
     "membership_status": "Inactive",
 }
 
-required_fields_with_blanks = {
+
+def test_from_bc_data__happy_path() -> None:
+    """Test that a `ClubSubscription` instance is created from BC data."""
+    # arrange
+    # act
+    sub = ClubSubscription.from_bc_data(bc_data_required_fields)
+    # assert
+    assert sub.email == "julia@example.com"
+    assert sub.first_name == "Julia"
+    assert sub.last_name == "Roberts"
+    assert sub.telephone == "+441234567890"
+    assert sub.british_cycling_membership_number == 12345
+    assert sub.club_membership_expiry
+    assert sub.club_membership_expiry == date(2024, 12, 19)
+
+
+bc_data_required_fields_minimal = {
     "membership_number": "54321",
     "first_name": "Kevin",
     "last_name": "Bacon",
@@ -37,19 +106,7 @@ required_fields_with_blanks = {
 }
 
 
-def test_from_bc_data__happy_path() -> None:
-    """Test that a `ClubSubscription` instance is created from BC data."""
-    sub = ClubSubscription.from_bc_data(required_fields)
-    assert sub.email == "julia@example.com"
-    assert sub.first_name == "Julia"
-    assert sub.last_name == "Roberts"
-    assert sub.telephone == "+441234567890"
-    assert sub.british_cycling_membership_number == 12345
-    assert sub.club_membership_expiry
-    assert sub.club_membership_expiry == date(2024, 12, 19)
-
-
 def test_from_bc_data__blank_fields() -> None:
     """Test that a `ClubSubscription` instance is created when fields are blank."""
-    sub = ClubSubscription.from_bc_data(required_fields_with_blanks)
+    sub = ClubSubscription.from_bc_data(bc_data_required_fields_minimal)
     assert sub.club_membership_expiry is None
