@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project tries to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.5.1] - 2026-08-22
+
+### Fixed
+
+- `ClubSubscription.from_bc_data()` could shift dates by one day
+
+
 ## [0.5.0] - 2026-05-05
 
 ### Added
@@ -73,6 +80,7 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 Initial release
 
 
+[0.5.1]: https://github.com/elliot-100/british-cycling-utils/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/elliot-100/british-cycling-utils/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/elliot-100/british-cycling-utils/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/elliot-100/british-cycling-utils/compare/v0.3.0...v0.3.1
