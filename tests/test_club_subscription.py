@@ -6,19 +6,20 @@ from typing import Any
 from british_cycling_utils.club_subscription import ClubSubscription
 
 required_fields: dict[str, Any] = {
-    "membership_number": 12345,
+    # model field names
+    "british_cycling_membership_number": 12345,
     "first_name": "Julia",
     "last_name": "Roberts",
     "email": "julia@example.com",
-    "telephone_day": "+441234567890",
+    "telephone": "+441234567890",
     "dob": date(1967, 10, 28),
     "emergency_contact_name": "George Clooney",
     "emergency_contact_number": "+441234567890",
     "primary_club": "Addlestone CC",
-    "end_dt": date(2024, 12, 19),
-    "membership_type": "Non-member",
-    "membership_status": "Inactive",
-    "valid_to_dt": date(2025, 1, 31),
+    "club_membership_expiry": date(2024, 12, 19),
+    "british_cycling_membership_type": "Non-member",
+    "british_cycling_membership_status": "Inactive",
+    "british_cycling_membership_expiry": date(2025, 1, 31),
 }
 
 
@@ -32,19 +33,20 @@ def test_init__happy_path() -> None:
 
 
 required_fields_minimal: dict[str, Any] = {
-    "membership_number": 54321,
+    # model field names
+    "british_cycling_membership_number": 54321,
     "first_name": "Kevin",
     "last_name": "Bacon",
     "email": "kevin@example.com",
-    "telephone_day": "+441234567890",
+    "telephone": "+441234567890",
     "dob": date(1958, 7, 8),
     "emergency_contact_name": None,
     "emergency_contact_number": None,
     "primary_club": "Brooklands CC",
-    "end_dt": None,
-    "membership_type": "Active Member",
-    "membership_status": "Active",
-    "valid_to_dt": None,
+    "club_membership_expiry": None,
+    "british_cycling_membership_type": "Active Member",
+    "british_cycling_membership_status": "Active",
+    "british_cycling_membership_expiry": None,
 }
 
 
@@ -58,6 +60,7 @@ def test_init__minimal() -> None:
 
 
 bc_data_required_fields = {
+    # CSV export field names
     "membership_number": "12345",
     "first_name": "Julia",
     "last_name": "Roberts",
@@ -96,6 +99,7 @@ def test_from_bc_data__happy_path() -> None:
 
 
 bc_data_required_fields_minimal = {
+    # CSV export field names
     "membership_number": "54321",
     "first_name": "Kevin",
     "last_name": "Bacon",

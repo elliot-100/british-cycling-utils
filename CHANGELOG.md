@@ -10,9 +10,9 @@ and this project tries to adhere to [Semantic Versioning](https://semver.org/spe
 
 ### Added
 
-- `ClubSubscription` data validation
-- Tests for `ClubSubscription.__init__()`
+- `ClubSubscription` data validation; only use 'CSV export' field names in `from_bc_data()`
 - Support Python 3.15
+- Tests
 - CI: add Dependabot
 
 ### Changed
