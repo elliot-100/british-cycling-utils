@@ -42,6 +42,7 @@ show_error_codes = true
 pretty = true
 
 [tool.ruff.lint]
+future-annotations = true
 select = ["ALL"]
 ignore = [
     # Rules that conflict with Ruff formatter:
@@ -50,6 +51,9 @@ ignore = [
     "D203", "D213",
     # Other:
     "CPY001"  # Missing copyright notice at top of file
+]
+extend-unsafe-fixes = [
+    "TC",  # typing-only-standard-library-import
 ]
 
 [tool.ruff.lint.flake8-type-checking]
