@@ -13,9 +13,17 @@ from cattrs.gen import make_dict_structure_fn
 
 
 def _convert_bc_date(value: str, type_: date) -> date | None:  # noqa: ARG001
-    """Convert from string in BC data to date or None."""
+    """Convert `dd/mm/yyyy` string in BC data to date, or None.
+
+    "10/09/2026" → date(2026, 9, 10)
+    "" → None
+    """
     return datetime.strptime(value, "%d/%m/%Y").date() if value else None  # noqa: DTZ007
     # Date object is never tz aware
+
+
+converter = Converter(use_alias=True)
+converter.register_structure_hook(date, _convert_bc_date)
 
 
 @define(kw_only=True, frozen=True)
@@ -103,11 +111,9 @@ class ClubSubscription:
 
         Aliases and converts fields; ignores non-implemented fields.
         """
-        c = Converter(use_alias=True)
-        c.register_structure_hook(date, _convert_bc_date)
-        hook = make_dict_structure_fn(cls, c)
-        c.register_structure_hook(cls, hook)
-        return c.structure(bc_data, cls)
+        hook = make_dict_structure_fn(cls, converter)
+        converter.register_structure_hook(cls, hook)
+        return converter.structure(bc_data, cls)
 
     @classmethod
     def list_from_bc_csv(cls, file_path: Path) -> list[Self]:
