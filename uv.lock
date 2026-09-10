@@ -84,7 +84,7 @@ wheels = [
 
 [[package]]
 name = "british-cycling-utils"
-version = "0.5.1"
+version = "0.6.0"
 source = { editable = "." }
 dependencies = [
     { name = "attrs" },
