@@ -1,15 +1,19 @@
 """Module containing `ClubSubscription` class and associated code."""
 
+from __future__ import annotations
+
 import csv
-from collections.abc import Mapping
 from datetime import date, datetime
 from pathlib import Path
-from typing import Any, Self
+from typing import TYPE_CHECKING, Any, Self
 
 from attrs import define, field
 from attrs.validators import instance_of
 from cattrs import Converter
 from cattrs.gen import make_dict_structure_fn
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 CSV_FIELD_MAPPING = {
     "membership_number": "british_cycling_membership_number",
