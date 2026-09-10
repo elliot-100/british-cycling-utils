@@ -11,6 +11,16 @@ from attrs.validators import instance_of
 from cattrs import Converter
 from cattrs.gen import make_dict_structure_fn
 
+CSV_FIELD_MAPPING = {
+    "membership_number": "british_cycling_membership_number",
+    "telephone_day": "telephone",
+    "end_dt": "club_membership_expiry",
+    "membership_type": "british_cycling_membership_type",
+    "membership_status": "british_cycling_membership_status",
+    "valid_to_dt": "british_cycling_membership_expiry",
+}
+"""Maps exported BC `*.csv` field names to `ClubSubscription` field names."""
+
 
 def _convert_bc_date(value: str, type_: date) -> date | None:  # noqa: ARG001
     """Convert `dd/mm/yyyy` string in BC data to date, or None.
@@ -22,7 +32,7 @@ def _convert_bc_date(value: str, type_: date) -> date | None:  # noqa: ARG001
     # Date object is never tz aware
 
 
-converter = Converter(use_alias=True)
+converter = Converter()
 converter.register_structure_hook(date, _convert_bc_date)
 
 
@@ -30,9 +40,7 @@ converter.register_structure_hook(date, _convert_bc_date)
 class ClubSubscription:
     """Represents a subscription record in the BC Club Management Tool."""
 
-    british_cycling_membership_number: int = field(
-        alias="membership_number", validator=instance_of(int)
-    )
+    british_cycling_membership_number: int = field(validator=instance_of(int))
     """Required, appears always populated in CSV.
     This is a really a BC profile/login id, not limited to current BC members.
     CSV column: 'membership_number'."""
@@ -49,7 +57,7 @@ class ClubSubscription:
     """Required, appears always populated in CSV.
     CSV column: same name."""
 
-    telephone: str = field(alias="telephone_day", validator=instance_of(str))
+    telephone: str = field(validator=instance_of(str))
     """Required, appears always populated in CSV.
     CSV column: 'telephone_day'."""
 
@@ -70,26 +78,20 @@ class ClubSubscription:
     CSV column: same name.
     BC UI column: 'Primary Club'."""
 
-    club_membership_expiry: date | None = field(
-        alias="end_dt", validator=instance_of(date | None)
-    )
+    club_membership_expiry: date | None = field(validator=instance_of(date | None))
     """Optional, observed not always populated in CSV.
     CSV column: 'end_dt'."""
 
-    british_cycling_membership_type: str = field(
-        alias="membership_type", validator=instance_of(str)
-    )
+    british_cycling_membership_type: str = field(validator=instance_of(str))
     """Required, appears always populated in CSV.
     CSV column: 'membership_type'."""
 
-    british_cycling_membership_status: str = field(
-        alias="membership_status", validator=instance_of(str)
-    )
+    british_cycling_membership_status: str = field(validator=instance_of(str))
     """Required, appears always populated in CSV.
     CSV column: 'membership_status'."""
 
     british_cycling_membership_expiry: date | None = field(
-        alias="valid_to_dt", validator=instance_of(date | None)
+        validator=instance_of(date | None)
     )
     """Optional, observed not always populated in CSV.
     CSV column: 'valid_to_dt'."""
@@ -109,11 +111,12 @@ class ClubSubscription:
     def from_bc_data(cls, bc_data: Mapping[str, Any]) -> Self:
         """Create instance from BC data.
 
-        Aliases and converts fields; ignores non-implemented fields.
+        Maps and converts fields; ignores non-implemented fields.
         """
         hook = make_dict_structure_fn(cls, converter)
         converter.register_structure_hook(cls, hook)
-        return converter.structure(bc_data, cls)
+        mapped_data = {CSV_FIELD_MAPPING.get(k, k): v for k, v in bc_data.items()}
+        return converter.structure(mapped_data, cls)
 
     @classmethod
     def list_from_bc_csv(cls, file_path: Path) -> list[Self]:
