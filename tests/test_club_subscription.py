@@ -105,7 +105,7 @@ bc_data_required_fields_minimal = {
     "last_name": "Bacon",
     "email": "kevin@example.com",
     "telephone_day": "+441234567890",
-    "dob": "08/07/1958",
+    "dob": "00/00/0000",  # seen in source CSV
     "emergency_contact_name": "Kyra Sedgwick",
     "emergency_contact_number": "+441234567890",
     "primary_club": "Brooklands CC",
@@ -117,14 +117,14 @@ bc_data_required_fields_minimal = {
 
 
 def test_from_bc_data__blank_fields() -> None:
-    """Test that a `ClubSubscription` instance is created when fields are blank."""
+    """Test that a `ClubSubscription` instance is created when field values are missing."""
     sub = ClubSubscription.from_bc_data(bc_data_required_fields_minimal)
     assert sub.british_cycling_membership_number == 54321
     assert sub.first_name == "Kevin"
     assert sub.last_name == "Bacon"
     assert sub.email == "kevin@example.com"
     assert sub.telephone == "+441234567890"
-    assert sub.dob == date(1958, 7, 8)
+    assert sub.dob is None
     assert sub.emergency_contact_name == "Kyra Sedgwick"
     assert sub.emergency_contact_number == "+441234567890"
     assert sub.primary_club == "Brooklands CC"
