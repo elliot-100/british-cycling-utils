@@ -50,7 +50,8 @@ ignore = [
     # Mutually exclusive format choices:
     "D203", "D213",
     # Other:
-    "CPY001"  # Missing copyright notice at top of file
+    "CPY001",  # Missing copyright notice at top of file
+    "D205",  # 1 blank line required between summary line and description
 ]
 extend-unsafe-fixes = [
     "TC",  # typing-only-standard-library-import

@@ -30,6 +30,7 @@ def _convert_bc_date(value: str, type_: date) -> date | None:  # noqa: ARG001
     """Convert `dd/mm/yyyy` string in BC data to date, or None.
 
     "10/09/2026" → date(2026, 9, 10)
+    "00/00/0000" → None
     "" → None
     """
     if value in {"", "00/00/0000"}:
@@ -47,61 +48,97 @@ converter.register_structure_hook(date, _convert_bc_date)
 class ClubSubscription:
     """Represents a subscription record in the BC Club Management Tool."""
 
-    british_cycling_membership_number: int = field(validator=instance_of(int))
-    """Required; appears always populated in CSV.
+    british_cycling_membership_number: int = field(
+        validator=instance_of(int),
+    )
+    """Required.
     This is a really a BC profile/login id, not limited to current BC members.
-    CSV column: 'membership_number'."""
+    CSV column: 'membership_number'; appears always populated."""
 
-    first_name: str = field(validator=instance_of(str))
-    """Required; appears always populated in CSV.
-    CSV column: same name."""
+    first_name: str | None = field(
+        default=None,
+        validator=instance_of(str | None),
+    )
+    """Optional.
+    CSV column: same name; appears always populated."""
 
-    last_name: str = field(validator=instance_of(str))
-    """Required; appears always populated in CSV.
-    CSV column: same name."""
+    last_name: str | None = field(
+        default=None,
+        validator=instance_of(str | None),
+    )
+    """Optional.
+    CSV column: same name; appears always populated."""
 
-    email: str = field(validator=instance_of(str))
-    """Required; appears always populated in CSV.
-    CSV column: same name."""
+    email: str | None = field(
+        default=None,
+        validator=instance_of(str | None),
+    )
+    """Optional.
+    CSV column: same name; appears always populated."""
 
-    telephone: str = field(validator=instance_of(str))
-    """Required; appears always populated in CSV.
-    CSV column: 'telephone_day'."""
+    telephone: str | None = field(
+        default=None,
+        validator=instance_of(str | None),
+    )
+    """Optional.
+    CSV column: 'telephone_day'; appears always populated."""
 
-    dob: date | None = field(validator=instance_of(date | None))
-    """Optional; observed not always populated in CSV.
-    CSV column: same name."""
+    dob: date | None = field(
+        default=None,
+        validator=instance_of(date | None),
+    )
+    """Optional.
+    CSV column: same name; observed not always populated."""
 
-    emergency_contact_name: str | None = field(validator=instance_of(str | None))
-    """Optional; observed not always populated in CSV.
-    CSV column: same name."""
+    emergency_contact_name: str | None = field(
+        default=None,
+        validator=instance_of(str | None),
+    )
+    """Optional.
+    CSV column: same name; observed not always populated."""
 
-    emergency_contact_number: str | None = field(validator=instance_of(str | None))
-    """Optional; observed not always populated in CSV.
-    CSV column: same name."""
+    emergency_contact_number: str | None = field(
+        default=None,
+        validator=instance_of(str | None),
+    )
+    """Optional.
+    CSV column: same name; observed not always populated."""
 
-    primary_club: str | None = field(validator=instance_of(str | None))
-    """Optional; assumed not always populated in CSV.
-    CSV column: same name.
+    primary_club: str | None = field(
+        default=None,
+        validator=instance_of(str | None),
+    )
+    """Optional.
+    CSV column: same name; observed not always populated.
     BC UI column: 'Primary Club'."""
 
-    club_membership_expiry: date | None = field(validator=instance_of(date | None))
-    """Optional; observed not always populated in CSV.
-    CSV column: 'end_dt'."""
+    club_membership_expiry: date | None = field(
+        default=None,
+        validator=instance_of(date | None),
+    )
+    """Optional.
+    CSV column: 'end_dt'; observed not always populated."""
 
-    british_cycling_membership_type: str = field(validator=instance_of(str))
-    """Required; appears always populated in CSV.
-    CSV column: 'membership_type'."""
+    british_cycling_membership_type: str | None = field(
+        default=None,
+        validator=instance_of(str | None),
+    )
+    """Optional.
+    CSV column: 'membership_type'; appears always populated."""
 
-    british_cycling_membership_status: str = field(validator=instance_of(str))
-    """Required; appears always populated in CSV.
-    CSV column: 'membership_status'."""
+    british_cycling_membership_status: str | None = field(
+        default=None,
+        validator=instance_of(str | None),
+    )
+    """Optional.
+    CSV column: 'membership_status'; appears always populated."""
 
     british_cycling_membership_expiry: date | None = field(
-        validator=instance_of(date | None)
+        default=None,
+        validator=instance_of(date | None),
     )
-    """Optional; observed not always populated in CSV.
-    CSV column: 'valid_to_dt'."""
+    """Optional.
+    CSV column: 'valid_to_dt'; observed not always populated."""
 
     # Other column names:
     #   age_category
@@ -116,7 +153,7 @@ class ClubSubscription:
 
     @classmethod
     def from_bc_data(cls, bc_data: Mapping[str, Any]) -> Self:
-        """Create instance from BC data.
+        """Create an instance from BC data, from e.g. CSV file.
 
         Maps and converts fields; ignores non-implemented fields.
         """
