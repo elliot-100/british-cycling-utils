@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project tries to adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## UNRELEASED - tbc
+
+### Added
+
+- Handle `ClubSubscription.dob` value `00/00/0000` in source data, converting to `None`
+
+### Changed
+
+- All `ClubSubscription` fields are optional, except `british_cycling_membership_number`
 
 ## [0.6.0] - 2026-09-10
 
