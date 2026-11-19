@@ -69,3 +69,4 @@ runtime-evaluated-decorators = ["attrs.define"]
 
 [tool.uv]
 resolution = "lowest-direct"
+exclude-newer = "7 days"
