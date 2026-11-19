@@ -1,6 +1,6 @@
 [project]
 name = "british-cycling-utils"
-version = "0.7.0"
+version = "0.8.0"
 description = "Unofficial library to work with data exported from British Cycling"
 readme = "README.md"
 authors = [
@@ -17,6 +17,7 @@ dependencies = [
 [project.urls]
 Source = "https://github.com/elliot-100/british-cycling-utils"
 Changelog = "https://github.com/elliot-100/british-cycling-utils/blob/main/CHANGELOG.md"
+Issues = "https://github.com/elliot-100/british-cycling-utils/issues"
 
 [build-system]
 requires = ["hatchling"]
